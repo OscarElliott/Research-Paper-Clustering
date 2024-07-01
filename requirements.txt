@@ -1,6 +1,7 @@
 pandas
+selenium
+webdriver-manager
+scikit-learn
+dbscan
 numpy
-requests
-beautifulsoup4
-nltk
-openpyxl
+sentence-transformers
