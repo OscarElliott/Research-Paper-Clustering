@@ -1,0 +1,14 @@
+Number of clusters: 11
+
+Cluster details:
+Cluster 5: 30 papers
+Cluster 1: 13 papers
+Cluster 0: 9 papers
+Cluster 8: 7 papers
+Cluster 4: 5 papers
+Cluster 9: 4 papers
+Cluster 3: 3 papers
+Cluster 6: 3 papers
+Cluster 2: 2 papers
+Cluster 7: 2 papers
+Cluster -1: 1 papers

@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 
-def cluster_abstracts(vectors_pkl, config_file, output_csv):
+def cluster_abstracts(vectors_pkl, config_file, output_csv, summary_txt, plot_path):
     # Load the embeddings from the pickle file
     with open(vectors_pkl, 'rb') as f:
         X = pickle.load(f)
 
-    # Load the best parameters from the config file
+    # Load the parameters from the config file
     with open(config_file, 'r') as f:
         config = json.load(f)
     best_eps = config['best_eps']
@@ -23,7 +23,7 @@ def cluster_abstracts(vectors_pkl, config_file, output_csv):
     pca = PCA(n_components=best_n_components)  # Reduce dimensions
     X_pca = pca.fit_transform(X)
 
-    # Perform DBSCAN clustering with best parameters
+    # Perform DBSCAN clustering
     clusterer = DBSCAN(eps=best_eps, min_samples=best_min_samples)
     clusters = clusterer.fit_predict(X_pca)
 
@@ -42,6 +42,19 @@ def cluster_abstracts(vectors_pkl, config_file, output_csv):
     df.to_csv(output_csv, index=False)
     print(f"Clustering complete. Results saved to {output_csv}")
 
+    # Generate summary report
+    cluster_counts = df['Cluster'].value_counts()
+    num_clusters = len(cluster_counts)
+    summary = f"Number of clusters: {num_clusters}\n\n"
+    summary += "Cluster details:\n"
+    for cluster, count in cluster_counts.items():
+        summary += f"Cluster {cluster}: {count} papers\n"
+
+    with open(summary_txt, 'w') as f:
+        f.write(summary)
+    
+    print(f"Summary report saved to {summary_txt}")
+
     # Visualize the clusters using PCA for dimensionality reduction
     pca_2d = PCA(n_components=2)
     X_2d = pca_2d.fit_transform(X)
@@ -51,10 +64,12 @@ def cluster_abstracts(vectors_pkl, config_file, output_csv):
     plt.figure(figsize=(10, 8))
     sns.scatterplot(x='PCA1', y='PCA2', hue='Cluster', palette='viridis', data=df, legend='full')
     plt.title("Clusters of Research Papers (DBSCAN)")
-    plt.show()
+    plt.savefig(plot_path)
 
 if __name__ == "__main__":
     vectors_pkl = "data/processed/vectors.pkl"  
-    output_csv = "data/processed/clustering_results.csv"  
+    output_csv = "data/processed/clustering_results.csv"
+    summary_txt = "data/processed/summary_report.txt"  
     config_file = "config.json"
-    cluster_abstracts(vectors_pkl, config_file, output_csv)
+    plot_path = 'data/processed/clusters_plot.png'
+    cluster_abstracts(vectors_pkl, config_file, output_csv, summary_txt, plot_path)
