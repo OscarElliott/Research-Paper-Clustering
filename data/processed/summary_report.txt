@@ -2,13 +2,33 @@ Number of clusters: 11
 
 Cluster details:
 Cluster 5: 30 papers
+Keywords: energy, power, wind
+
 Cluster 1: 13 papers
+Keywords: water, hydrogen, reaction
+
 Cluster 0: 9 papers
+Keywords: hydrogen, energy, ammonia
+
 Cluster 8: 7 papers
+Keywords: energy, environmental, development
+
 Cluster 4: 5 papers
+Keywords: battery, energy, scale
+
 Cluster 9: 4 papers
+Keywords: ag, mof, tob
+
 Cluster 3: 3 papers
+Keywords: hydrogen, grid, energy
+
 Cluster 6: 3 papers
+Keywords: solar, energy, desalination
+
 Cluster 2: 2 papers
+Keywords: ammonia, green, energy
+
 Cluster 7: 2 papers
+Keywords: solar, energy, power
+
 Cluster -1: 1 papers

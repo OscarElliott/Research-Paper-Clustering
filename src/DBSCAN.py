@@ -6,6 +6,28 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
+from collections import Counter
+
+import re
+
+
+def extract_keywords(texts, top_n=3):
+    # Join all texts into a single string
+    all_text = ' '.join(texts)
+    
+    # Remove punctuation and tokenize
+    words = re.findall(r'\b\w+\b', all_text.lower())
+    
+    # Filter out common stop words (extend as needed)
+    stop_words = set(['the', 'is', 'in', 'and', 'of', 'to', 'a', 'for', 'are', 'with', 'on', 'as', 'by', 'at', 'an', 'from', 'or', 'that', 'this'])
+    words = [word for word in words if word not in stop_words]
+    
+    # Count word frequencies
+    word_counts = Counter(words)
+    
+    # Get the top n keywords
+    keywords = [word for word, _ in word_counts.most_common(top_n)]
+    return keywords
 
 def cluster_abstracts(vectors_pkl, config_file, output_csv, summary_txt, plot_path):
     # Load the embeddings from the pickle file
@@ -48,8 +70,12 @@ def cluster_abstracts(vectors_pkl, config_file, output_csv, summary_txt, plot_pa
     summary = f"Number of clusters: {num_clusters}\n\n"
     summary += "Cluster details:\n"
     for cluster, count in cluster_counts.items():
+        cluster_abstracts = df[df['Cluster'] == cluster]['Abstract'].tolist()
+        keywords = extract_keywords(cluster_abstracts)
         summary += f"Cluster {cluster}: {count} papers\n"
-
+        if cluster > -1:
+            summary += f"Keywords: {', '.join(keywords)}\n\n"
+    
     with open(summary_txt, 'w') as f:
         f.write(summary)
     
