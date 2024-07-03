@@ -7,7 +7,7 @@ preprocess:
 	$(PYTHON) src/data_preprocessing.py
 
 cleanData:
-	$(PYTHON) src/remove_diplicates.py
+	$(PYTHON) src/remove_duplicates.py
 
 vectorize:
 	$(PYTHON) src/vectorization.py

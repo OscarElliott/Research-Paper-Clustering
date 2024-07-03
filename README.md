@@ -11,7 +11,7 @@ Clusters research papers based on their abstract similarity. The project makes u
 
 ### DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
 For this assesment I have decided to make use of DBSCAN as it provides a few key advantages over other possiblie unspervised learning models for clustering such as LSA or K-Means, particularly in the context of clustering research paper abstracts:
-- Unlike K-Means, which requires specifying the number of clusters beforehand, DBSCAN does not need this parameter. It identifies clusters based on density and is capable of finding clusters of arbitrary shapes and sizes. This was relevant here as there where many articles that all appear at first to be topically similar
+- Unlike K-Means, which requires specifying the number of clusters beforehand, DBSCAN does not need this parameter. It identifies clusters based on density and is capable of finding clusters of arbitrary shapes and sizes. This was relevant here as there where many articles that all appear at first to be topically similar.
 - Research paper abstracts can vary widely in content and thematic focus. DBSCAN is robust to noise and can effectively identify outliers or research papers with unique topics that do not fit well into any cluster.
 
 ## Directory Structure
